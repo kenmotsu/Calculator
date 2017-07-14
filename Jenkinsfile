@@ -9,7 +9,7 @@ pipeline{
 		}
 		stage('Build') {
 			steps {
-				sleep 2
+				sh "cd calc/src && make"
 			}
 		}
 		stage('Statick analysis') {
