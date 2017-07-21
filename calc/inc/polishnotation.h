@@ -3,15 +3,19 @@
 
 #include "mydef.h"
 
-void push(char*,
+void pushChar(char*,
           char,
           int*);
-char pop(char*, int*);
+char popChar(char*, int*);
 void pushDouble(double*,
                 double,
                 int*);
 double popDouble(double*, int*);
 int calcPriority(char);
+void pushOperator(char);
+double calcFormula(char,
+                   double,
+                   double);
 void toPolishNotation(char*);
 double calcPolishNotation(char*);
 

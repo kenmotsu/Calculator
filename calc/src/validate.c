@@ -8,6 +8,47 @@ char inputErrorMess[MESS_NUM] = {0};
 char calcResultErrorMess[MESS_NUM] = {0};
 
 bool
+checkValidFormula(char* formula)
+{
+    if (!isdigit(formula[0]) && formula[0] != '(') return false;
+
+    int pSCount = 0;
+    int pECount = 0;
+    int figCount = 0;
+    int opCount = 0;
+    for (int i = 0; i < ARRAY_NUM; i++)
+    {
+        if (isdigit(formula[i]))
+        {
+            figCount++;
+        }
+
+        if (formula[i] == '(')
+        {
+            pSCount++;
+            if (formula[i+1] == ')') return false;
+        }
+
+        if (formula[i] == ')')
+        {
+            pECount++;
+            if (formula[i+1] == '(') return false;
+        }
+
+        if (formula[i] == '+' || formula[i] == '-' ||
+                 formula[i] == '*' || formula[i] == '/')
+        {
+            opCount++;
+            if (formula[i-1] == '(' || formula[i+1] == ')') return false;
+        }
+    }
+
+    if (figCount == 0 || opCount == 0 || pSCount != pECount) return false;
+
+    return true;
+}
+
+bool
 validateInputFormula(char* formula)
 {
     if (formula[0] == '\n')
@@ -15,23 +56,13 @@ validateInputFormula(char* formula)
         strcpy(inputErrorMess, INPUT_ERROR_NONE);
         return false;
     }
-    else if (strlen(formula) >= ARRAY_NUM)
+
+    if (strlen(formula) >= ARRAY_NUM)
     {
         strcpy(inputErrorMess, INPUT_ERROR_LONG);
         return false;
     }
 
-    if (!isdigit(formula[0]) && formula[0] != '(')
-    {
-        strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-        return false;
-    }
-
-
-    int pSCount = 0;
-    int pECount = 0;
-    int figCount = 0;
-    int opeCount = 0;
     for (int i = 0; i < ARRAY_NUM; i++)
     {
         if (!isdigit(formula[i]) && formula[i] != '+' && formula[i] != '-' &&
@@ -41,47 +72,9 @@ validateInputFormula(char* formula)
             strcpy(inputErrorMess, E);
             return false;
         }
-
-        if (isdigit(formula[i]))
-        {
-            figCount++;
-        }
-        else if (formula[i] == '(')
-        {
-            pSCount++;
-            if (formula[i+1] == ')')
-            {
-                strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-                return false;
-            }
-        }
-        else if (formula[i] == ')')
-        {
-            pECount++;
-            if (formula[i+1] == '(')
-            {
-                strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-                return false;
-            }
-        }
-
-        if (i > 0)
-        {
-            if (formula[i] == '+' || formula[i] == '-' ||
-                formula[i] == '*' || formula[i] == '/')
-            {
-                opeCount++;
-
-                if (formula[i-1] == '(' || formula[i+1] == ')')
-                {
-                    strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-                    return false;
-                }
-            }
-        }
     }
 
-    if (figCount == 0 || opeCount == 0 || pSCount != pECount)
+    if (!checkValidFormula(formula))
     {
         strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
         return false;

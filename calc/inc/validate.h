@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+bool checkValidFormula(char*);
 bool validateInputFormula(char*);
 bool validateCalcResult(double);
 

@@ -14,9 +14,9 @@ int spTemp = 0;
 int calcsp = 0;
 
 void
-push(char* stack,
-     char data,
-     int* sp)
+pushChar(char* stack,
+         char data,
+         int* sp)
 {
     if (*sp < ARRAY_NUM)
     {
@@ -25,7 +25,7 @@ push(char* stack,
 }
 
 char
-pop(char* stack, int* sp)
+popChar(char* stack, int* sp)
 {
     if (*sp > 0)
     {
@@ -62,24 +62,80 @@ popDouble(double* stack, int* sp)
 }
 
 int
-calcPriority(char chara)
+calcPriority(char op)
 {
     int priority = 0;
 
-    if (chara == '/')
+    if (op == '/')
     {
         priority = 3;
     }
-    else if (chara == '*')
+    else if (op == '*')
     {
         priority = 2;
     }
-    else if (chara == '+' || chara == '-')
+    else if (op == '+' || op == '-')
     {
         priority = 1;
     }
 
     return priority;
+}
+
+void
+pushOperator(char op)
+{
+    while (true)
+    {
+        char opTemp = popChar(arrayTemp, &spTemp);
+
+        int priorityA = calcPriority(op);
+        int priorityB = calcPriority(opTemp);
+
+        if (priorityA > priorityB)
+        {
+            pushChar(arrayTemp, opTemp, &spTemp);
+            pushChar(arrayTemp, op, &spTemp);
+            break;
+        }
+
+        pushChar(array, opTemp, &sp);
+        pushChar(array, ',', &sp);
+        pushChar(arrayTemp, op, &spTemp);
+    }
+}
+
+double
+calcFormula(char op,
+            double figA,
+            double figB)
+{
+    double result = 0;
+
+    if (op == '/')
+    {
+        if (figA == 0)
+        {
+            printf(CALC_ERROR);
+            exit(1);
+        }
+
+        result = figB / figA;
+    }
+    else if (op == '*')
+    {
+        result = figB * figA;
+    }
+    else if (op == '+')
+    {
+        result = figB + figA;
+    }
+    else if (op == '-')
+    {
+        result = figB - figA;
+    }
+
+    return result;
 }
 
 void
@@ -91,66 +147,42 @@ toPolishNotation(char* formula)
     {
         if (formula[i] == '(')
         {
-            push(arrayTemp, formula[i], &spTemp);
+            pushChar(arrayTemp, formula[i], &spTemp);
         }
         else if (formula[i] == ')')
         {
-            while ((temp = pop(arrayTemp, &spTemp)) != '(')
+            while ((temp = popChar(arrayTemp, &spTemp)) != '(')
             {
-                push(array, temp, &sp);
-                push(array, ',', &sp);
+                pushChar(array, temp, &sp);
+                pushChar(array, ',', &sp);
             }
         }
         else if (isdigit(formula[i]))
         {
-            push(array, formula[i], &sp);
+            pushChar(array, formula[i], &sp);
 
             while (true)
             {
-                if (isdigit(formula[i+1]))
+                if (!isdigit(formula[i+1]))
                 {
-                    push(array, formula[i+1], &sp);
-                    i++;
-                }
-                else
-                {
-                    push(array, ',', &sp);
-
+                    pushChar(array, ',', &sp);
                     break;
                 }
+                pushChar(array, formula[i+1], &sp);
+                i++;
             }
         }
         else if (formula[i] == '+' || formula[i] == '-' ||
                  formula[i] == '*' || formula[i] == '/')
         {
-            while (true)
-            {
-                char formulaTemp = pop(arrayTemp, &spTemp);
-
-                int priorityA = calcPriority(formula[i]);
-                int priorityB = calcPriority(formulaTemp);
-
-                if (priorityA > priorityB)
-                {
-                    push(arrayTemp, formulaTemp, &spTemp);
-                    push(arrayTemp, formula[i], &spTemp);
-
-                    break;
-                }
-                else
-                {
-                    push(array, formulaTemp, &sp);
-                    push(array, ',', &sp);
-                    push(arrayTemp, formula[i], &spTemp);
-                }
-            }
+            pushOperator(formula[i]);
         }
     }
 
     while (spTemp != 0)
     {
-        push(array, pop(arrayTemp, &spTemp), &sp);
-        push(array, ',', &sp);
+        pushChar(array, popChar(arrayTemp, &spTemp), &sp);
+        pushChar(array, ',', &sp);
     }
 }
 
@@ -169,49 +201,24 @@ calcPolishNotation(char* polishFormula)
             int j = 1;
             while (true)
             {
-                if (isdigit(polishFormula[i+1]))
-                {
-                    temp[j++] = polishFormula[i+1];
-                    i++;
-                }
-                else
+                if (!isdigit(polishFormula[i+1]))
                 {
                     pushDouble(calcArray, atof(temp), &calcsp);
                     break;
                 }
+                temp[j++] = polishFormula[i+1];
+                i++;
             }
         }
-        else if (polishFormula[i] != '\0' && polishFormula[i] != ',')
+
+        if (polishFormula[i] == '+' || polishFormula[i] == '-' ||
+            polishFormula[i] == '*' || polishFormula[i] == '/')
         {
-            double numA = popDouble(calcArray, &calcsp);
-            double numB = popDouble(calcArray, &calcsp);
+            double figA = popDouble(calcArray, &calcsp);
+            double figB = popDouble(calcArray, &calcsp);
+            double calcResult = calcFormula(polishFormula[i], figA, figB);
 
-            double result = 0;
-
-            if (polishFormula[i] == '/')
-            {
-                if (numA == 0)
-                {
-                    printf(CALC_ERROR);
-                    exit(1);
-                }
-
-                result = numB / numA;
-            }
-            else if (polishFormula[i] == '*')
-            {
-                result = numB * numA;
-            }
-            else if (polishFormula[i] == '+')
-            {
-                result = numB + numA;
-            }
-            else if (polishFormula[i] == '-')
-            {
-                result = numB - numA;
-            }
-
-            pushDouble(calcArray, result, &calcsp);
+            pushDouble(calcArray, calcResult, &calcsp);
         }
     }
 
