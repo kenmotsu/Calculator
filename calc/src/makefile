@@ -1,7 +1,8 @@
 # All Target
-all: main.exe
+all: main
 
-main.exe:
-	gcc -I"../inc/" -o main.exe main.c validate.c polishnotation.c
-	 
-# clean
+main:
+	gcc -I"../inc/" -o main main.c validate.c polishnotation.c
+	
+clean:
+	rm -f main

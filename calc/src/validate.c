@@ -36,10 +36,11 @@ checkValidFormula(char* formula)
         }
 
         if (formula[i] == '+' || formula[i] == '-' ||
-                 formula[i] == '*' || formula[i] == '/')
+            formula[i] == '*' || formula[i] == '/')
         {
             opCount++;
             if (formula[i-1] == '(' || formula[i+1] == ')') return false;
+            if (!isdigit(formula[i+1]) && formula[i+1] != '(') return false;
         }
     }
 

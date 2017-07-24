@@ -9,17 +9,22 @@ pipeline{
 		}
 		stage('Build') {
 			steps {
-				sh "cd calc/src && make"
+				sh "cd calc/src && make clean && make"
 			}
 		}
 		stage('Statick analysis') {
 			steps {
-				sleep 2
+				sh "cd .. && cpptestcli -import .project && cpptestcli -data \"C:\Users\kenmotsu\parasoft\workspace\" -resource \"calc\" -config user://インターンシップ向け"
 			}
 		}
 		stage('Unit Test') {
-			steps{
+			steps {
 				sleep 2
+			}
+		}
+		stage('Send mail') {
+			steps {
+				mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'kenmotsu@techmatrix.co.jp'
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 #include "polishnotation.h"
 #include <ctype.h>
+#include <float.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -92,7 +93,7 @@ pushOperator(char op)
         int priorityA = calcPriority(op);
         int priorityB = calcPriority(opTemp);
 
-        if (priorityA > priorityB)
+        if (priorityA >= priorityB)
         {
             pushChar(arrayTemp, opTemp, &spTemp);
             pushChar(arrayTemp, op, &spTemp);
@@ -111,6 +112,12 @@ calcFormula(char op,
             double figB)
 {
     double result = 0;
+
+    if (figA > DOUBLE_MAX || figB > DOUBLE_MAX)
+    {
+        printf(ERROR_LONG);
+        exit(1);
+    }
 
     if (op == '/')
     {
@@ -216,9 +223,14 @@ calcPolishNotation(char* polishFormula)
         {
             double figA = popDouble(calcArray, &calcsp);
             double figB = popDouble(calcArray, &calcsp);
-            double calcResult = calcFormula(polishFormula[i], figA, figB);
+            double result = calcFormula(polishFormula[i], figA, figB);
 
-            pushDouble(calcArray, calcResult, &calcsp);
+            if (result > DOUBLE_MAX)
+            {
+                printf(ERROR_LONG);
+                exit(1);
+            }
+            pushDouble(calcArray, result, &calcsp);
         }
     }
 
