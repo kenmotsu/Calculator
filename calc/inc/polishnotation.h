@@ -17,6 +17,6 @@ double calcFormula(char,
                    double,
                    double);
 void toPolishNotation(char*);
-double calcPolishNotation(char*);
+int calcPolishNotation(char*);
 
 #endif

@@ -6,12 +6,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char array[ARRAY_POLISH_NUM] = {0};
-char arrayTemp[ARRAY_NUM] = {0};
-double calcArray[ARRAY_NUM] = {0};
+char array[MAX_NUM];
+char arrayTemp[ARRAY_NUM];
+double calcArray[ARRAY_NUM];
 
-int sp = 0;
-int spTemp = 0;
+int sp;
+int spTemp;
 int calcsp = 0;
 
 void
@@ -28,6 +28,9 @@ pushChar(char* stack,
 char
 popChar(char* stack, int* sp)
 {
+	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%s", stack);
+	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%d", *sp);
+	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%c", stack[--(*sp)]);
     if (*sp > 0)
     {
         return stack[--(*sp)];
@@ -150,7 +153,7 @@ toPolishNotation(char* formula)
 {
     char temp = 0;
 
-    for (int i = 0; i < ARRAY_NUM; i++)
+    for (int i = 0; formula[i] != '\0'; i++)
     {
         if (formula[i] == '(')
         {
@@ -193,12 +196,12 @@ toPolishNotation(char* formula)
     }
 }
 
-double
+int
 calcPolishNotation(char* polishFormula)
 {
-    double calcResult = 0;
+    int calcResult = 0;
 
-    for (int i = 0; i < ARRAY_POLISH_NUM; i++)
+    for (int i = 0; polishFormula[i] != '\0'; i++)
     {
         if (isdigit(polishFormula[i]))
         {
@@ -234,7 +237,7 @@ calcPolishNotation(char* polishFormula)
         }
     }
 
-    calcResult = round(calcArray[0]);
+    calcResult = (int)round(calcArray[0]);
 
     return calcResult;
 }

@@ -1,20 +1,17 @@
 pipeline{
-	agent any;
-	
+    agent any;
+
 	stages {
-		stage('Check out') {
-			steps {
-				checkout scm
-			}
-		}
 		stage('Build') {
 			steps {
-				sh "cd calc/src && make clean && make"
+				sh 'cd calc/src && make clean && make'
 			}
 		}
 		stage('Statick analysis') {
 			steps {
-				sh "cd .. && cpptestcli -import .project && cpptestcli -data \"C:\Users\kenmotsu\parasoft\workspace\" -resource \"calc\" -config user://インターンシップ向け"
+				sh 'cpptestcli -data "." -import calc/.project'
+				sh 'cpptestcli -data "." -resource "calc" -config "calc/TestConfiguration/インターンシップ向け.properties"'
+                archiveArtifacts 'calc/rep*'
 			}
 		}
 		stage('Unit Test') {
@@ -24,8 +21,13 @@ pipeline{
 		}
 		stage('Send mail') {
 			steps {
-				mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: '', to: 'kenmotsu@techmatrix.co.jp'
+				mail bcc: '', body: "Build status : ${currentBuild.currentResult}\n${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "[TestResult]Job: ${env.JOB_NAME}(build number: ${env.BUILD_NUMBER})", to: 'kenmotsu@techmatrix.co.jp'
 			}
+		}
+		stage('Clean workspace') {
+		    steps {
+		        cleanWs()
+		    }
 		}
 	}
 }

@@ -1,0 +1,10 @@
+------- cpptestscan v.10.3.2.20170511B1261 (cpptesttrace) -------
+working_dir=C:\Users\kenmotsu\Desktop\Calculator\calc\src
+project_name=calc
+arg=C:\cygwin64\bin\gcc.exe
+arg=-I../inc/
+arg=-o
+arg=main
+arg=main.c
+arg=validate.c
+arg=polishnotation.c
