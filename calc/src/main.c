@@ -5,7 +5,7 @@
 #include "polishnotation.h"
 #include "validate.h"
 
-extern char array[ARRAY_POLISH_NUM];
+extern char array[ARRAY_NUM];
 extern char inputErrorMess[MESS_NUM];
 extern char calcResultErrorMess[MESS_NUM];
 
@@ -14,7 +14,7 @@ main(void)
 {
     char formula[MAX_NUM] = {0};
 
-    printf("è¨ˆç®—å¼ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„\n");
+    printf("ŒvZ®‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
 
@@ -26,15 +26,14 @@ main(void)
 
     toPolishNotation(formula);
 
-    double calcResult = calcPolishNotation(array);
+    int calcResult = calcPolishNotation(array);
     if (!validateCalcResult(calcResult))
     {
         printf("%s", calcResultErrorMess);
         return 0;
     }
 
-    printf("è¨ˆç®—çµæœã¯%.0fã§ã™", calcResult);
-
+    printf("ŒvZŒ‹‰Ê‚Í%d‚Å‚·", calcResult);
 
     return 0;
 }

@@ -2,15 +2,14 @@
 #define _MYDEF_H_
 
 #define ARRAY_NUM 256
-#define ARRAY_POLISH_NUM 512
 #define MAX_NUM 512
 #define MESS_NUM 256
 #define DOUBLE_MAX 9007199254740991
-#define INPUT_ERROR_NONE "ã‚¨ãƒ©ãƒ¼ï¼šå…¥åŠ›ãŒã‚ã‚Šã¾ã›ã‚“ã€‚"
-#define INPUT_ERROR_LONG "å…¥åŠ›ã•ã‚ŒãŸæ•°å¼ãŒé•·ã™ãŽã¾ã™ã€‚"
-#define INPUT_ERROR_NOT_FORMULA "ã‚¨ãƒ©ãƒ¼ï¼šæ•°å¼ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
-#define E "ã‚¨ãƒ©ãƒ¼ï¼šæ‰±ãˆãªã„æ–‡å­—ãƒ»è¨˜å·ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚"
-#define CALC_ERROR "ã‚¼ãƒ­ä¹—ç®—ãŒè¡Œã‚ã‚Œã¾ã—ãŸã€‚"
-#define ERROR_LONG "ã‚¨ãƒ©ãƒ¼ï¼šæ¡æ•°ãŒå¤šã™ãŽã¾ã™ã€‚"
+#define INPUT_ERROR_NONE "ƒGƒ‰[F“ü—Í‚ª‚ ‚è‚Ü‚¹‚ñB"
+#define INPUT_ERROR_LONG "“ü—Í‚³‚ê‚½”Ž®‚ª’·‚·‚¬‚Ü‚·B"
+#define INPUT_ERROR_NOT_FORMULA "ƒGƒ‰[F”Ž®‚Å‚Í‚ ‚è‚Ü‚¹‚ñB"
+#define E "ƒGƒ‰[Fˆµ‚¦‚È‚¢•¶ŽšE‹L†‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·B"
+#define CALC_ERROR "ƒ[ƒæŽZ‚ªs‚í‚ê‚Ü‚µ‚½B"
+#define ERROR_LONG "ƒGƒ‰[FŒ…”‚ª‘½‚·‚¬‚Ü‚·B"
 
 #endif

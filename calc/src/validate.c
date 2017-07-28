@@ -16,7 +16,7 @@ checkValidFormula(char* formula)
     int pECount = 0;
     int figCount = 0;
     int opCount = 0;
-    for (int i = 0; i < ARRAY_NUM; i++)
+    for (int i = 0; formula[i] != '\0'; i++)
     {
         if (isdigit(formula[i]))
         {
@@ -64,7 +64,7 @@ validateInputFormula(char* formula)
         return false;
     }
 
-    for (int i = 0; i < ARRAY_NUM; i++)
+    for (int i = 0; formula[i] != '\0'; i++)
     {
         if (!isdigit(formula[i]) && formula[i] != '+' && formula[i] != '-' &&
             formula[i] != '*' && formula[i] != '/' && formula[i] != '(' &&
@@ -85,7 +85,7 @@ validateInputFormula(char* formula)
 }
 
 bool
-validateCalcResult(double calcResult)
+validateCalcResult(int calcResult)
 {
     /*
     char digit[MAX_NUM] = {0};
