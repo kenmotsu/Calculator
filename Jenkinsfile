@@ -16,7 +16,7 @@ pipeline{
 			steps {
 				sh 'cpptestcli -data "." -import calc/.project'
 				sh 'cpptestcli -data "." -resource "calc" -config "calc/TestConfiguration/インターンシップ向け.properties"'
-                archiveArtifacts 'calc/rep*'
+                archiveArtifacts 'rep*'
 			}
 		}
 		stage('Unit Test') {
