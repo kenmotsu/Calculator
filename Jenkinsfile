@@ -15,7 +15,7 @@ pipeline{
 		stage('Statick analysis') {
 			steps {
 				sh 'cpptestcli -data "." -import calc/.project'
-				sh 'cpptestcli -data "." -resource "calc" -config "calc/TestConfiguration/インターンシップ向け.properties"'
+				sh 'cpptestcli -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"'
                 archiveArtifacts 'rep*'
 			}
 		}
