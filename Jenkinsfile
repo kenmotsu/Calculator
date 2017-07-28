@@ -2,6 +2,11 @@ pipeline{
     agent any;
 
 	stages {
+		stage('Check out') {
+			steps {
+				checkout scm
+			}
+		}
 		stage('Build') {
 			steps {
 				sh 'cd calc/src && make clean && make'
