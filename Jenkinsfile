@@ -12,16 +12,24 @@ pipeline{
 				sh 'cd calc/src && make clean && make'
 			}
 		}
-		stage('Statick analysis') {
+		stage('Import a project') {
 			steps {
 				sh 'cpptestcli -data "." -import calc/.project'
-				sh 'cpptestcli -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"'
-                archiveArtifacts 'rep*'
+			}
+		}
+		stage('Statick analysis') {
+			steps {
+				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"''
 			}
 		}
 		stage('Unit Test') {
 			steps {
-				sleep 2
+				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/03.UnitTest.properties"'
+			}
+		}
+		stage('Save reports') {
+			steps {
+				archiveArtifacts 'rep*'
 			}
 		}
 		stage('Send mail') {

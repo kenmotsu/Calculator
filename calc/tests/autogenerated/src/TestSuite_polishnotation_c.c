@@ -511,12 +511,10 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator()
             <code><![CDATA[    array[i] = '\0';]]></code>
             <code><![CDATA[    arrayTemp[i] = '\0';]]></code>
             <code><![CDATA[}]]></code>
-            <code/>
             <code><![CDATA[int j = 0;]]></code>
             <code><![CDATA[while(*ap != '\0') {]]></code>
             <code><![CDATA[	arrayTemp[j] = *ap;]]></code>
             <code><![CDATA[	*ap++;]]></code>
-            <code><![CDATA[	printf("%c", arrayTemp[j]);]]></code>
             <code><![CDATA[	j++;]]></code>
             <code><![CDATA[}]]></code>
             <code><![CDATA[spTemp = spt;]]></code>
@@ -530,15 +528,8 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator()
         <step id="AssertionsStep" version="1">
             <step id="AssertionStep" version="1">
                 <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
-                <P1>array</P1>
-                <P2>CPPTEST_DS_GET_CSTR("[OUT]arrayResult")</P2>
-                <P3/>
-                <P4/>
-            </step>
-            <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
-                <P1>arrayTemp</P1>
-                <P2>CPPTEST_DS_GET_CSTR("[OUT]arrayTempReuslt")</P2>
+                <P1>CPPTEST_DS_GET_CSTR("[OUT]arrayResult")</P1>
+                <P2>array</P2>
                 <P3/>
                 <P4/>
             </step>
@@ -557,18 +548,15 @@ for (int i =0; i < ARRAY_NUM; i++) {
     array[i] = '\0';
     arrayTemp[i] = '\0';
 }
-
 int j = 0;
 while(*ap != '\0') {
 	arrayTemp[j] = *ap;
 	*ap++;
-	printf("%c", arrayTemp[j]);
 	j++;
 }
 spTemp = spt;
 pushOperator(_op);
-CPPTEST_ASSERT_CSTR_EQUAL(array, CPPTEST_DS_GET_CSTR("[OUT]arrayResult"));
-CPPTEST_ASSERT_CSTR_EQUAL(arrayTemp, CPPTEST_DS_GET_CSTR("[OUT]arrayTempReuslt"));
+CPPTEST_ASSERT_CSTR_EQUAL(CPPTEST_DS_GET_CSTR("[OUT]arrayResult"), array);
 }
 /* CPPTEST_TEST_CASE_END test_pushOperator */
 

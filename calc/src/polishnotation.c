@@ -86,23 +86,47 @@ calcPriority(char op)
 void
 pushOperator(char op)
 {
+    bool flag = false;
     while (true)
     {
-        char opTemp = popChar(arrayTemp, &spTemp);
-
-        int priorityA = calcPriority(op);
-        int priorityB = calcPriority(opTemp);
-
-        if (priorityA >= priorityB)
+        if (!flag)
         {
-            pushChar(arrayTemp, opTemp, &spTemp);
-            pushChar(arrayTemp, op, &spTemp);
-            break;
-        }
+            char opTemp = popChar(arrayTemp, &spTemp);
 
-        pushChar(array, opTemp, &sp);
-        pushChar(array, ',', &sp);
-        pushChar(arrayTemp, op, &spTemp);
+            int priorityA = calcPriority(op);
+            int priorityB = calcPriority(opTemp);
+
+            if (priorityA >= priorityB)
+            {
+                pushChar(arrayTemp, opTemp, &spTemp);
+                pushChar(arrayTemp, op, &spTemp);
+                break;
+            }
+
+            pushChar(array, opTemp, &sp);
+            pushChar(array, ',', &sp);
+            pushChar(arrayTemp, op, &spTemp);
+            flag = true;
+        }
+        else
+        {
+            char opTempA = popChar(arrayTemp, &spTemp);
+            char opTempB = popChar(arrayTemp, &spTemp);
+
+            int priorityA = calcPriority(opTempA);
+            int priorityB = calcPriority(opTempB);
+
+            if (priorityA >= priorityB)
+            {
+                pushChar(arrayTemp, opTempB, &spTemp);
+                pushChar(arrayTemp, opTempA, &spTemp);
+                break;
+            }
+
+            pushChar(array, opTempB, &sp);
+            pushChar(array, ',', &sp);
+            pushChar(arrayTemp, opTempA, &spTemp);
+        }
     }
 }
 

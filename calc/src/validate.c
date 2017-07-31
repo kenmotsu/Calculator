@@ -52,16 +52,18 @@ checkValidFormula(char* formula)
 bool
 validateInputFormula(char* formula)
 {
+    bool validateFlag = true;
+
     if (formula[0] == '\n')
     {
         strcpy(inputErrorMess, INPUT_ERROR_NONE);
-        return false;
+        validateFlag = false;
     }
 
     if (strlen(formula) >= ARRAY_NUM)
     {
         strcpy(inputErrorMess, INPUT_ERROR_LONG);
-        return false;
+        validateFlag = false;
     }
 
     for (int i = 0; formula[i] != '\0'; i++)
@@ -71,17 +73,17 @@ validateInputFormula(char* formula)
             formula[i] != ')' && formula[i] != '\0')
         {
             strcpy(inputErrorMess, E);
-            return false;
+            validateFlag = false;
         }
     }
 
     if (!checkValidFormula(formula))
     {
         strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-        return false;
+        validateFlag = false;
     }
 
-    return true;
+    return vaidateFlag;
 }
 
 bool
