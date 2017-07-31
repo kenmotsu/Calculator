@@ -14,8 +14,8 @@ CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_calcPriority, CPPTEST_D
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_pushChar, CPPTEST_DS("pushChar"));
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_popChar, CPPTEST_DS("popChar"));
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_pushDouble, CPPTEST_DS("pushDouble"));
-CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_popDouble, CPPTEST_DS("popDouble"));
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_pushOperator, CPPTEST_DS("pushOperator"));
+CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_popDouble, CPPTEST_DS("popDouble"));
 CPPTEST_TEST_SUITE_END();
         
 
@@ -26,8 +26,8 @@ void TestSuite_polishnotation_c_1dbfebd0_test_calcPriority(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_pushChar(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_popChar(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_pushDouble(void);
-void TestSuite_polishnotation_c_1dbfebd0_test_popDouble(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator(void);
+void TestSuite_polishnotation_c_1dbfebd0_test_popDouble(void);
 CPPTEST_TEST_SUITE_REGISTRATION(TestSuite_polishnotation_c_1dbfebd0);
 
 void TestSuite_polishnotation_c_1dbfebd0_setUp(void);
@@ -373,7 +373,7 @@ void TestSuite_polishnotation_c_1dbfebd0_test_popChar()
             <step id="VariableStep" version="1">
                 <name>_stack</name>
                 <type>char *</type>
-                <value>CPPTEST_DS_GET_CSTR("array")</value>
+                <value>CPPTEST_DS_GET_CSTR("stack")</value>
             </step>
             <step id="VariableStep" version="1">
                 <name>_sp</name>
@@ -389,7 +389,7 @@ void TestSuite_polishnotation_c_1dbfebd0_test_popChar()
         </step>
         <step id="AssertionsStep" version="1">
             <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
+                <type>CPPTEST_ASSERT_EQUAL</type>
                 <P1>CPPTEST_DS_GET_CHAR("[OUT]result")</P1>
                 <P2>_return</P2>
                 <P3/>
@@ -401,10 +401,10 @@ void TestSuite_polishnotation_c_1dbfebd0_test_popChar()
 
 #endif
 /* CPPTEST_TEST_CASE_DATA_END */
-char * _stack = CPPTEST_DS_GET_CSTR("array");
+char * _stack = CPPTEST_DS_GET_CSTR("stack");
 char _sp = CPPTEST_DS_GET_INTEGER("sp");
 char _return = popChar(_stack, &_sp);
-CPPTEST_ASSERT_CSTR_EQUAL(CPPTEST_DS_GET_CHAR("[OUT]result"), _return);
+CPPTEST_ASSERT_EQUAL(CPPTEST_DS_GET_CHAR("[OUT]result"), _return);
 }
 /* CPPTEST_TEST_CASE_END test_popChar */
 
@@ -426,7 +426,7 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushDouble()
         <step id="MultiVariableStep" version="1">
             <step id="VariableStep" version="1">
                 <name>_stack</name>
-                <type>double *</type>
+                <type>double</type>
                 <value>CPPTEST_DS_GET_FLOAT("[IN]stack")</value>
             </step>
             <step id="VariableStep" version="1">
@@ -440,17 +440,20 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushDouble()
                 <value>CPPTEST_DS_GET_INTEGER("[IN]sp")</value>
             </step>
         </step>
+        <step id="CodeStep" version="1">
+            <code><![CDATA[double stack[256] = {_stack};]]></code>
+        </step>
         <step id="CallStep" version="1">
             <comment>Tested function call</comment>
             <return/>
             <name>pushDouble</name>
-            <params>_stack, _data, &amp;_sp</params>
+            <params>stack, _data, &amp;_sp</params>
         </step>
         <step id="AssertionsStep" version="1">
             <step id="AssertionStep" version="1">
                 <type>CPPTEST_ASSERT_DOUBLES_EQUAL</type>
                 <P1>CPPTEST_DS_GET_FLOAT("[OUT]result")</P1>
-                <P2>_stack[_sp]</P2>
+                <P2>stack[_sp-1]</P2>
                 <P3>0.01</P3>
                 <P4/>
             </step>
@@ -460,67 +463,14 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushDouble()
 
 #endif
 /* CPPTEST_TEST_CASE_DATA_END */
-double * _stack = CPPTEST_DS_GET_FLOAT("[IN]stack");
+double _stack = CPPTEST_DS_GET_FLOAT("[IN]stack");
 double _data = CPPTEST_DS_GET_FLOAT("[IN]data");
 int _sp = CPPTEST_DS_GET_INTEGER("[IN]sp");
-pushDouble(_stack, _data, &_sp);
-CPPTEST_ASSERT_DOUBLES_EQUAL(CPPTEST_DS_GET_FLOAT("[OUT]result"), _stack[_sp], 0.01);
+double stack[256] = {_stack};
+pushDouble(stack, _data, &_sp);
+CPPTEST_ASSERT_DOUBLES_EQUAL(CPPTEST_DS_GET_FLOAT("[OUT]result"), stack[_sp-1], 0.01);
 }
 /* CPPTEST_TEST_CASE_END test_pushDouble */
-
-/* CPPTEST_TEST_CASE_BEGIN test_popDouble */
-/* CPPTEST_TEST_CASE_CONTEXT double popDouble(double *, int *) */
-void TestSuite_polishnotation_c_1dbfebd0_test_popDouble()
-{
-/* CPPTEST_TEST_CASE_DATA_BEGIN */
-#if 0
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testcase>
-    <metadata/>
-    <steps>
-        <step id="DataSourceStep" version="2">
-            <ext>true</ext>
-            <extname>popDouble</extname>
-        </step>
-        <step id="MultiVariableStep" version="1">
-            <step id="VariableStep" version="1">
-                <name>_stack</name>
-                <type>double *</type>
-                <value>CPPTEST_DS_GET_FLOAT("[IN]stack")</value>
-            </step>
-            <step id="VariableStep" version="1">
-                <name>_sp</name>
-                <type>int *</type>
-                <value>CPPTEST_DS_GET_INTEGER("[IN]sp")</value>
-            </step>
-        </step>
-        <step id="CallStep" version="1">
-            <comment>Tested function call</comment>
-            <return>double _return</return>
-            <name>popDouble</name>
-            <params>_stack, _sp</params>
-        </step>
-        <step id="AssertionsStep" version="1">
-            <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_DOUBLES_EQUAL</type>
-                <P1>CPPTEST_DS_GET_FLOAT("[OUT]result")</P1>
-                <P2>_return</P2>
-                <P3>0.01</P3>
-                <P4/>
-            </step>
-        </step>
-    </steps>
-</testcase>
-
-#endif
-/* CPPTEST_TEST_CASE_DATA_END */
-double * _stack = CPPTEST_DS_GET_FLOAT("[IN]stack");
-int * _sp = CPPTEST_DS_GET_INTEGER("[IN]sp");
-double _return = popDouble(_stack, _sp);
-CPPTEST_ASSERT_DOUBLES_EQUAL(CPPTEST_DS_GET_FLOAT("[OUT]result"), _return, 0.01);
-}
-/* CPPTEST_TEST_CASE_END test_popDouble */
 
 /* CPPTEST_TEST_CASE_BEGIN test_pushOperator */
 /* CPPTEST_TEST_CASE_CONTEXT void pushOperator(char) */
@@ -541,28 +491,35 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator()
             <step id="VariableStep" version="1">
                 <name>_op</name>
                 <type>char</type>
-                <value>0</value>
+                <value>CPPTEST_DS_GET_CHAR("[IN]operator")</value>
             </step>
             <step id="VariableStep" version="1">
-                <name>spTemp</name>
-                <type/>
-                <value>0</value>
+                <name>ap</name>
+                <type>char *</type>
+                <value>CPPTEST_DS_GET_CSTR("arrayTemp")</value>
             </step>
             <step id="VariableStep" version="1">
-                <name>array[0]</name>
-                <type/>
-                <value>0</value>
+                <name>spt</name>
+                <type>int</type>
+                <value>CPPTEST_DS_GET_INTEGER("spTemp")</value>
             </step>
-            <step id="VariableStep" version="1">
-                <name>sp</name>
-                <type/>
-                <value>0</value>
-            </step>
-            <step id="VariableStep" version="1">
-                <name>arrayTemp[0]</name>
-                <type/>
-                <value>0</value>
-            </step>
+        </step>
+        <step id="CodeStep" version="1">
+            <code><![CDATA[sp = 0;]]></code>
+            <code><![CDATA[spTemp = 0;]]></code>
+            <code><![CDATA[for (int i =0; i < ARRAY_NUM; i++) {]]></code>
+            <code><![CDATA[    array[i] = '\0';]]></code>
+            <code><![CDATA[    arrayTemp[i] = '\0';]]></code>
+            <code><![CDATA[}]]></code>
+            <code/>
+            <code><![CDATA[int j = 0;]]></code>
+            <code><![CDATA[while(*ap != '\0') {]]></code>
+            <code><![CDATA[	arrayTemp[j] = *ap;]]></code>
+            <code><![CDATA[	*ap++;]]></code>
+            <code><![CDATA[	printf("%c", arrayTemp[j]);]]></code>
+            <code><![CDATA[	j++;]]></code>
+            <code><![CDATA[}]]></code>
+            <code><![CDATA[spTemp = spt;]]></code>
         </step>
         <step id="CallStep" version="1">
             <comment>Tested function call</comment>
@@ -572,30 +529,16 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator()
         </step>
         <step id="AssertionsStep" version="1">
             <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_INTEGER_EQUAL</type>
-                <P1>0</P1>
-                <P2>spTemp</P2>
+                <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
+                <P1>array</P1>
+                <P2>CPPTEST_DS_GET_CSTR("[OUT]arrayResult")</P2>
                 <P3/>
                 <P4/>
             </step>
             <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_INTEGER_EQUAL</type>
-                <P1>0</P1>
-                <P2>array[0]</P2>
-                <P3/>
-                <P4/>
-            </step>
-            <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_INTEGER_EQUAL</type>
-                <P1>0</P1>
-                <P2>sp</P2>
-                <P3/>
-                <P4/>
-            </step>
-            <step id="AssertionStep" version="1">
-                <type>CPPTEST_ASSERT_INTEGER_EQUAL</type>
-                <P1>0</P1>
-                <P2>arrayTemp[0]</P2>
+                <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
+                <P1>arrayTemp</P1>
+                <P2>CPPTEST_DS_GET_CSTR("[OUT]arrayTempReuslt")</P2>
                 <P3/>
                 <P4/>
             </step>
@@ -605,15 +548,90 @@ void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator()
 
 #endif
 /* CPPTEST_TEST_CASE_DATA_END */
-char _op = 0;
-spTemp = 0;
-array[0] = 0;
+char _op = CPPTEST_DS_GET_CHAR("[IN]operator");
+char * ap = CPPTEST_DS_GET_CSTR("arrayTemp");
+int spt = CPPTEST_DS_GET_INTEGER("spTemp");
 sp = 0;
-arrayTemp[0] = 0;
+spTemp = 0;
+for (int i =0; i < ARRAY_NUM; i++) {
+    array[i] = '\0';
+    arrayTemp[i] = '\0';
+}
+
+int j = 0;
+while(*ap != '\0') {
+	arrayTemp[j] = *ap;
+	*ap++;
+	printf("%c", arrayTemp[j]);
+	j++;
+}
+spTemp = spt;
 pushOperator(_op);
-CPPTEST_ASSERT_INTEGER_EQUAL(0, spTemp);
-CPPTEST_ASSERT_INTEGER_EQUAL(0, array[0]);
-CPPTEST_ASSERT_INTEGER_EQUAL(0, sp);
-CPPTEST_ASSERT_INTEGER_EQUAL(0, arrayTemp[0]);
+CPPTEST_ASSERT_CSTR_EQUAL(array, CPPTEST_DS_GET_CSTR("[OUT]arrayResult"));
+CPPTEST_ASSERT_CSTR_EQUAL(arrayTemp, CPPTEST_DS_GET_CSTR("[OUT]arrayTempReuslt"));
 }
 /* CPPTEST_TEST_CASE_END test_pushOperator */
+
+/* CPPTEST_TEST_CASE_BEGIN test_popDouble */
+/* CPPTEST_TEST_CASE_CONTEXT double popDouble(double *, int *) */
+void TestSuite_polishnotation_c_1dbfebd0_test_popDouble()
+{
+/* CPPTEST_TEST_CASE_DATA_BEGIN */
+#if 0
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testcase>
+    <metadata/>
+    <steps>
+        <step id="DataSourceStep" version="2">
+            <ext>true</ext>
+            <extname>popDouble</extname>
+        </step>
+        <step id="MultiVariableStep" version="1">
+            <step id="VariableStep" version="1">
+                <name>_stack1</name>
+                <type>double</type>
+                <value>CPPTEST_DS_GET_FLOAT("stack[0]")</value>
+            </step>
+            <step id="VariableStep" version="1">
+                <name>_stack2</name>
+                <type>double</type>
+                <value>CPPTEST_DS_GET_FLOAT("stack[1]")</value>
+            </step>
+            <step id="VariableStep" version="1">
+                <name>_sp</name>
+                <type>int</type>
+                <value>CPPTEST_DS_GET_INTEGER("sp")</value>
+            </step>
+        </step>
+        <step id="CodeStep" version="1">
+            <code><![CDATA[double stack[256] = {_stack1, _stack2};]]></code>
+        </step>
+        <step id="CallStep" version="1">
+            <comment>Tested function call</comment>
+            <return>double _return</return>
+            <name>popDouble</name>
+            <params>stack, &amp;_sp</params>
+        </step>
+        <step id="AssertionsStep" version="1">
+            <step id="AssertionStep" version="1">
+                <type>CPPTEST_ASSERT_FLOAT_EQUAL_DELTA</type>
+                <P1>stack[_sp]</P1>
+                <P2>_return</P2>
+                <P3>0.01</P3>
+                <P4/>
+            </step>
+        </step>
+    </steps>
+</testcase>
+
+#endif
+/* CPPTEST_TEST_CASE_DATA_END */
+double _stack1 = CPPTEST_DS_GET_FLOAT("stack[0]");
+double _stack2 = CPPTEST_DS_GET_FLOAT("stack[1]");
+int _sp = CPPTEST_DS_GET_INTEGER("sp");
+double stack[256] = {_stack1, _stack2};
+double _return = popDouble(stack, &_sp);
+CPPTEST_ASSERT_FLOAT_EQUAL_DELTA(stack[_sp], _return, 0.01);
+}
+/* CPPTEST_TEST_CASE_END test_popDouble */

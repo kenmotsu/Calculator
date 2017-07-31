@@ -28,9 +28,6 @@ pushChar(char* stack,
 char
 popChar(char* stack, int* sp)
 {
-	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%s", stack);
-	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%d", *sp);
-	printf("XXXXXXXXXXXXXXXXXXXXXXXXXXX%c", stack[--(*sp)]);
     if (*sp > 0)
     {
         return stack[--(*sp)];
