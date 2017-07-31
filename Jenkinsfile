@@ -19,7 +19,7 @@ pipeline{
 		}
 		stage('Statick analysis') {
 			steps {
-				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"''
+				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"'
 			}
 		}
 		stage('Unit Test') {
