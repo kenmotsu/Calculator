@@ -14,17 +14,17 @@ pipeline{
 		}
 		stage('Import a project') {
 			steps {
-				sh 'cpptestcli -data "." -import calc/.project'
+				sh 'cpptestcli -localsettings "calc/cpptest_option" -data "." -import calc/.project'
 			}
 		}
 		stage('Statick analysis') {
 			steps {
-				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"'
+				sh 'cpptestcli -localsettings "calc/cpptest_option" -data "." -resource "calc" -config "calc/TestConfiguration/Intern.properties"'
 			}
 		}
 		stage('Unit Test') {
 			steps {
-				sh 'cpptestcli -localsettings "calc/optionfile" -data "." -resource "calc" -config "calc/TestConfiguration/03.UnitTest.properties"'
+				sh 'cpptestcli -localsettings "calc/cpptest_option" -data "." -resource "calc" -config "calc/TestConfiguration/03.UnitTest.properties"'
 			}
 		}
 		stage('Save reports') {
