@@ -83,7 +83,7 @@ validateInputFormula(char* formula)
         validateFlag = false;
     }
 
-    return vaidateFlag;
+    return validateFlag;
 }
 
 bool
