@@ -1,6 +1,6 @@
 #include "polishnotation.h"
 #include <ctype.h>
-#include <float.h>
+#include <limits.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -137,7 +137,7 @@ calcFormula(char op,
 {
     double result = 0;
 
-    if (figA > DOUBLE_MAX || figB > DOUBLE_MAX)
+    if (figA > INT_MAX || figB > INT_MAX)
     {
         printf(ERROR_LONG);
         exit(1);
@@ -248,7 +248,7 @@ calcPolishNotation(char* polishFormula)
             double figB = popDouble(calcArray, &calcsp);
             double result = calcFormula(polishFormula[i], figA, figB);
 
-            if (result > DOUBLE_MAX)
+            if (result > INT_MAX)
             {
                 printf(ERROR_LONG);
                 exit(1);

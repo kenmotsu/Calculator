@@ -16,6 +16,8 @@ CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_popChar, CPPTEST_DS("po
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_pushDouble, CPPTEST_DS("pushDouble"));
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_pushOperator, CPPTEST_DS("pushOperator"));
 CPPTEST_TEST_DS(TestSuite_polishnotation_c_1dbfebd0_test_popDouble, CPPTEST_DS("popDouble"));
+//CPPTEST_TEST(TestSuite_polishnotation_c_1dbfebd0_test_error_calcFormula);
+CPPTEST_TEST_ERROR(TestSuite_polishnotation_c_1dbfebd0_test_error_calcFormula, CPPTEST_EXIT_CALLED);
 CPPTEST_TEST_SUITE_END();
         
 
@@ -28,6 +30,7 @@ void TestSuite_polishnotation_c_1dbfebd0_test_popChar(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_pushDouble(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_pushOperator(void);
 void TestSuite_polishnotation_c_1dbfebd0_test_popDouble(void);
+void TestSuite_polishnotation_c_1dbfebd0_test_error_calcFormula(void);
 CPPTEST_TEST_SUITE_REGISTRATION(TestSuite_polishnotation_c_1dbfebd0);
 
 void TestSuite_polishnotation_c_1dbfebd0_setUp(void);
@@ -640,3 +643,57 @@ double _return = popDouble(stack, &_sp);
 CPPTEST_ASSERT_FLOAT_EQUAL_DELTA(stack[_sp], _return, 0.01);
 }
 /* CPPTEST_TEST_CASE_END test_popDouble */
+
+/* CPPTEST_TEST_CASE_BEGIN test_error_calcFormula */
+/* CPPTEST_TEST_CASE_CONTEXT double calcFormula(char, double, double) */
+void TestSuite_polishnotation_c_1dbfebd0_test_error_calcFormula()
+{
+/* CPPTEST_TEST_CASE_DATA_BEGIN */
+#if 0
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testcase>
+    <metadata/>
+    <steps>
+        <step id="MultiVariableStep" version="1">
+            <step id="VariableStep" version="1">
+                <name>_op</name>
+                <type>char</type>
+                <value>'*'</value>
+            </step>
+            <step id="VariableStep" version="1">
+                <name>_figA</name>
+                <type>double</type>
+                <value>10000000000000000000000000</value>
+            </step>
+            <step id="VariableStep" version="1">
+                <name>_figB</name>
+                <type>double</type>
+                <value>1</value>
+            </step>
+            <step id="VariableStep" version="1">
+                <name>_return</name>
+                <type>double</type>
+                <value/>
+            </step>
+        </step>
+        <step id="CallStep" version="1">
+            <comment>Tested function call</comment>
+            <return>_return</return>
+            <name>calcFormula</name>
+            <params>_op, _figA, _figB</params>
+        </step>
+    </steps>
+</testcase>
+
+#endif
+/* CPPTEST_TEST_CASE_DATA_END */
+printf("1\n");
+char _op = '*';
+double _figA = 10000000000000000000000000;
+double _figB = 1;
+double _return;
+_return = calcFormula(_op, _figA, _figB);
+printf("2\n");
+}
+/* CPPTEST_TEST_CASE_END test_error_calcFormula */
