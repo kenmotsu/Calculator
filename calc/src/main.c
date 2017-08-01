@@ -7,7 +7,6 @@
 
 extern char array[ARRAY_NUM];
 extern char inputErrorMess[MESS_NUM];
-extern char calcResultErrorMess[MESS_NUM];
 
 int
 main(void)
@@ -18,7 +17,7 @@ main(void)
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
 
-    if (!validateInputFormula(formula))
+    if (!validateInputFormula(formula)) /* parasoft-suppress BD-PB-CC "åÎåüèo" */
     {
         printf("%s", inputErrorMess);
         return 0;
@@ -26,14 +25,7 @@ main(void)
 
     toPolishNotation(formula);
 
-    int calcResult = calcPolishNotation(array);
-    if (!validateCalcResult(calcResult))
-    {
-        printf("%s", calcResultErrorMess);
-        return 0;
-    }
-
-    printf("åvéZåãâ ÇÕ%dÇ≈Ç∑", calcResult);
+    printf("åvéZåãâ ÇÕ%dÇ≈Ç∑", calcPolishNotation(array));
 
     return 0;
 }

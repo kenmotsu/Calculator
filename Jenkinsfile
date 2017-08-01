@@ -2,6 +2,11 @@ pipeline{
     agent any;
 
 	stages {
+		stage('Clean workspace') {
+		    steps {
+		        cleanWs()
+		    }
+		}
 		stage('Check out') {
 			steps {
 				checkout scm
@@ -36,11 +41,6 @@ pipeline{
 			steps {
 				mail bcc: '', body: "Build status : ${currentBuild.currentResult}\n${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "[TestResult]Job: ${env.JOB_NAME}(build number: ${env.BUILD_NUMBER})", to: 'kenmotsu@techmatrix.co.jp'
 			}
-		}
-		stage('Clean workspace') {
-		    steps {
-		        cleanWs()
-		    }
 		}
 	}
 }

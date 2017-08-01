@@ -12,7 +12,7 @@ double calcArray[ARRAY_NUM];
 
 int sp;
 int spTemp;
-int calcsp = 0;
+int calcsp;
 
 void
 pushChar(char* stack,
@@ -226,8 +226,7 @@ calcPolishNotation(char* polishFormula)
     {
         if (isdigit(polishFormula[i]))
         {
-            char temp[ARRAY_NUM] = {0};
-            temp[0] = polishFormula[i];
+            char temp[ARRAY_NUM] = {polishFormula[i]};
 
             int j = 1;
             while (true)

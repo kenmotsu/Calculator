@@ -5,6 +5,5 @@
 
 bool checkValidFormula(char*);
 bool validateInputFormula(char*);
-bool validateCalcResult(int);
 
 #endif

@@ -124,7 +124,7 @@ CPPTEST_ASSERT_CSTR_EQUAL(CPPTEST_DS_GET_CSTR("[OUT]polishFormula"), array);
 /* CPPTEST_TEST_CASE_END test_toPolishNotation */
 
 /* CPPTEST_TEST_CASE_BEGIN test_calcPolishNotation */
-/* CPPTEST_TEST_CASE_CONTEXT double calcPolishNotation(char *) */
+/* CPPTEST_TEST_CASE_CONTEXT  */
 void TestSuite_polishnotation_c_1dbfebd0_test_calcPolishNotation()
 {
 /* CPPTEST_TEST_CASE_DATA_BEGIN */
@@ -216,6 +216,11 @@ void TestSuite_polishnotation_c_1dbfebd0_test_calcFormula()
                 <type>double</type>
                 <value>CPPTEST_DS_GET_FLOAT("[IN]figureB")</value>
             </step>
+            <step id="VariableStep" version="1">
+                <name>_calcErrorMess</name>
+                <type>char *</type>
+                <value>CPPTEST_DS_GET_CSTR("[OUT]calcErrorMess")</value>
+            </step>
         </step>
         <step id="CallStep" version="1">
             <comment>Tested function call</comment>
@@ -240,8 +245,20 @@ void TestSuite_polishnotation_c_1dbfebd0_test_calcFormula()
 char _op = CPPTEST_DS_GET_CHAR("[IN]operator");
 double _figA = CPPTEST_DS_GET_FLOAT("[IN]figureA");
 double _figB = CPPTEST_DS_GET_FLOAT("[IN]figureB");
+//char * _calcErrorMess = CPPTEST_DS_GET_CSTR("[OUT]calcErrorMess");
+
+/* Pre-condition initialization */
+CppTest_StreamRedirect* output_stream = CppTest_RedirectStdOutput();
+
 double _return = calcFormula(_op, _figA, _figB);
 CPPTEST_ASSERT_DOUBLES_EQUAL(CPPTEST_DS_GET_FLOAT("[OUT]calcResult"), _return, 0.01);
+/*
+if (_calcErrorMess[0] != '0') {
+    CPPTEST_ASSERT(0 == CppTest_StreamCompare(output_stream, _calcErrorMess));
+    CppTest_StreamReset(output_stream);
+} else {
+    CPPTEST_ASSERT_DOUBLES_EQUAL(CPPTEST_DS_GET_FLOAT("[OUT]calcResult"), _return, 0.01);
+}*/
 }
 /* CPPTEST_TEST_CASE_END test_calcFormula */
 

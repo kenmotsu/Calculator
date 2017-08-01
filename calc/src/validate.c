@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char inputErrorMess[MESS_NUM] = {0};
-char calcResultErrorMess[MESS_NUM] = {0};
+char inputErrorMess[MESS_NUM];
 
 bool
 checkValidFormula(char* formula)
@@ -52,18 +51,16 @@ checkValidFormula(char* formula)
 bool
 validateInputFormula(char* formula)
 {
-    bool validateFlag = true;
-
     if (formula[0] == '\n')
     {
         strcpy(inputErrorMess, INPUT_ERROR_NONE);
-        validateFlag = false;
+        return false;
     }
 
     if (strlen(formula) >= ARRAY_NUM)
     {
         strcpy(inputErrorMess, INPUT_ERROR_LONG);
-        validateFlag = false;
+        return false;
     }
 
     for (int i = 0; formula[i] != '\0'; i++)
@@ -73,32 +70,15 @@ validateInputFormula(char* formula)
             formula[i] != ')' && formula[i] != '\0')
         {
             strcpy(inputErrorMess, E);
-            validateFlag = false;
+            return false;
         }
     }
 
     if (!checkValidFormula(formula))
     {
         strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
-        validateFlag = false;
-    }
-
-    return validateFlag;
-}
-
-bool
-validateCalcResult(int calcResult)
-{
-    /*
-    char digit[MAX_NUM] = {0};
-
-    snprintf(digit, MAX_NUM, "%.0f", calcResult);
-
-    if (strlen(digit) >= ARRAY_NUM)
-    {
-        strcpy(calcResultErrorMess, OUTPUT_ERROR_LONG);
         return false;
-    }*/
+    }
 
     return true;
 }
