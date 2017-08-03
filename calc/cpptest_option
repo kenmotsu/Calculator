@@ -4,3 +4,12 @@ cpptest.license.network.edition=automation_embedded_edition
 cpptest.license.use_network=true
 license.network.host=172.16.25.22
 license.network.port=2222
+
+#Thu Aug 03 10:52:52 JST 2017
+dtp.enabled=true
+dtp.password=626079fd67
+dtp.port=8443
+dtp.project=Default Project
+dtp.server=192.168.99.100
+dtp.user=admin
+report.dtp.publish=true
