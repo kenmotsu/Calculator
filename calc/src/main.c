@@ -13,12 +13,6 @@ main(void)
 {
     char formula[MAX_NUM] = {0};
 
-    int temp;
-    if (true) {
-        temp = 123;
-    	printf("%d\n", temp);
-    }
-
     printf("ŒvŽZŽ®‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
