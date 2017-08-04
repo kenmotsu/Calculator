@@ -5,10 +5,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 char array[MAX_NUM];
 char arrayTemp[ARRAY_NUM];
 double calcArray[ARRAY_NUM];
+char errorMess[MESS_NUM];
 
 int sp;
 int spTemp;
@@ -139,16 +141,20 @@ calcFormula(char op,
 
     if (figA > INT_MAX || figB > INT_MAX)
     {
-        printf(ERROR_LONG);
-        exit(1);
+        //printf(ERROR_LONG);
+        //exit(1);
+        strcpy(errorMess, ERROR_LONG);
+        return 0;
     }
 
     if (op == '/')
     {
         if (figA == 0)
         {
-            printf(CALC_ERROR);
-            exit(1);
+            //printf(CALC_ERROR);
+            //exit(1);
+            strcpy(errorMess, CALC_ERROR);
+            return 0;
         }
 
         result = figB / figA;
@@ -248,10 +254,14 @@ calcPolishNotation(char* polishFormula)
             double figB = popDouble(calcArray, &calcsp);
             double result = calcFormula(polishFormula[i], figA, figB);
 
+            if (errorMess[0] != '\0') return 0;
+
             if (result > INT_MAX)
             {
-                printf(ERROR_LONG);
-                exit(1);
+                //printf(ERROR_LONG);
+                //exit(1);
+                strcpy(errorMess, ERROR_LONG);
+                return 0;
             }
             pushDouble(calcArray, result, &calcsp);
         }

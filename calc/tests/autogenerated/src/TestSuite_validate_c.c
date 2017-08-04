@@ -51,7 +51,7 @@ void TestSuite_validate_c_f8743fef_test_validateInputFormula()
         </step>
         <step id="CodeStep" version="1">
             <code><![CDATA[for (int i =0; i < MESS_NUM; i++) {]]></code>
-            <code><![CDATA[    inputErrorMess[i] = '\0';]]></code>
+            <code><![CDATA[    errorMess[i] = '\0';]]></code>
             <code><![CDATA[}]]></code>
         </step>
         <step id="AdvancedStubsStep" version="1">
@@ -79,7 +79,7 @@ void TestSuite_validate_c_f8743fef_test_validateInputFormula()
             <step id="AssertionStep" version="1">
                 <type>CPPTEST_ASSERT_CSTR_EQUAL</type>
                 <P1>CPPTEST_DS_GET_CSTR("errorMessage")</P1>
-                <P2>inputErrorMess</P2>
+                <P2>errorMess</P2>
                 <P3/>
                 <P4/>
             </step>
@@ -91,7 +91,7 @@ void TestSuite_validate_c_f8743fef_test_validateInputFormula()
 /* CPPTEST_TEST_CASE_DATA_END */
 char * _formula = CPPTEST_DS_GET_CSTR("[IN]formula");
 for (int i =0; i < MESS_NUM; i++) {
-    inputErrorMess[i] = '\0';
+    errorMess[i] = '\0';
 }
 #if CPPTEST_TRIGGER_ENABLED == 0
 #error "Test case uses Stubs API which is currently disabled (-DCPPTEST_TRIGGER_ENABLED=0). Please review your configuration."
@@ -99,7 +99,7 @@ for (int i =0; i < MESS_NUM; i++) {
 CPPTEST_ON_CALL("checkValidFormula")->Arg("__return")->Assign()->Int(CPPTEST_DS_GET_BOOL("[Stub]checkValidFormula"));
 bool _return = validateInputFormula(_formula);
 CPPTEST_ASSERT_BOOL_EQUAL(CPPTEST_DS_GET_BOOL("[OUT]decision"), _return);
-CPPTEST_ASSERT_CSTR_EQUAL(CPPTEST_DS_GET_CSTR("errorMessage"), inputErrorMess);
+CPPTEST_ASSERT_CSTR_EQUAL(CPPTEST_DS_GET_CSTR("errorMessage"), errorMess);
 }
 /* CPPTEST_TEST_CASE_END test_validateInputFormula */
 

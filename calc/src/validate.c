@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char inputErrorMess[MESS_NUM];
+extern char errorMess[MESS_NUM];
 
 bool
 checkValidFormula(char* formula)
@@ -53,13 +53,13 @@ validateInputFormula(char* formula)
 {
     if (formula[0] == '\n')
     {
-        strcpy(inputErrorMess, INPUT_ERROR_NONE);
+        strcpy(errorMess, INPUT_ERROR_NONE);
         return false;
     }
 
     if (strlen(formula) >= ARRAY_NUM)
     {
-        strcpy(inputErrorMess, INPUT_ERROR_LONG);
+        strcpy(errorMess, INPUT_ERROR_LONG);
         return false;
     }
 
@@ -69,14 +69,14 @@ validateInputFormula(char* formula)
             formula[i] != '*' && formula[i] != '/' && formula[i] != '(' &&
             formula[i] != ')' && formula[i] != '\0')
         {
-            strcpy(inputErrorMess, E);
+            strcpy(errorMess, E);
             return false;
         }
     }
 
     if (!checkValidFormula(formula))
     {
-        strcpy(inputErrorMess, INPUT_ERROR_NOT_FORMULA);
+        strcpy(errorMess, INPUT_ERROR_NOT_FORMULA);
         return false;
     }
 

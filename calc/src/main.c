@@ -6,7 +6,7 @@
 #include "validate.h"
 
 extern char array[ARRAY_NUM];
-extern char inputErrorMess[MESS_NUM];
+extern char errorMess[MESS_NUM];
 
 int
 main(void)
@@ -19,13 +19,20 @@ main(void)
 
     if (!validateInputFormula(formula)) /* parasoft-suppress BD-PB-CC "ŒëŒŸo" */
     {
-        printf("%s", inputErrorMess);
+        printf("%s", errorMess);
         return 0;
     }
 
     toPolishNotation(formula);
 
-    printf("ŒvZŒ‹‰Ê‚Í%d‚Å‚·", calcPolishNotation(array));
+    int calcResult = calcPolishNotation(array);
+    if (errorMess[0] != '\0')
+    {
+        printf("%s", errorMess);
+        return 0;
+    }
+
+    printf("ŒvZŒ‹‰Ê‚Í%d‚Å‚·", calcResult);
 
     return 0;
 }

@@ -19,7 +19,7 @@ pipeline{
 		}
 		stage('Import a project') {
 			steps {
-				sh 'cpptestcli -localsettings "calc/cpptest_option" -data "." -import calc/.project'
+				sh 'cpptestcli -localsettings "calc/cpptest_option" -data "." -import "calc/.project"'
 			}
 		}
 		stage('Statick analysis') {
