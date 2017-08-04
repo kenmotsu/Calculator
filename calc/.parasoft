@@ -1,4 +1,4 @@
-#Fri Jul 28 17:09:51 JST 2017
+#Fri Aug 04 11:36:47 JST 2017
 .datasources/ds-module.CPP\://-897167684202368673/datasources=ds_-280780051_1501136831388_1059152055\nds_-280780051_1501200712140_1425889258
 .datasources/ds-module.CPP\://-897167684202368673/ds_-280780051_1501136831388_1059152055.break_on_empty_row=true
 .datasources/ds-module.CPP\://-897167684202368673/ds_-280780051_1501136831388_1059152055.closeconn=true
@@ -142,6 +142,7 @@
 /calc/inc/mydef.h//com.parasoft.xtest.checkers.api.cpp.options.working.dir=${project_loc}
 /calc/inc/mydef.h//com.parasoft.xtest.execution.api.cpp.options.instrument.file=true
 /calc/src/main.c//com.parasoft.xtest.checkers.api.cpp.options.compiler.options.win32.x86=${cpptest\:original_options} -DPARASOFT_CPPTEST
+/calc/src/main.c//com.parasoft.xtest.checkers.api.cpp.options.extractor.id=options_dir_extractor_id
 /calc/src/main.c//com.parasoft.xtest.checkers.api.cpp.options.file.specific.compiler.opts=false
 /calc/src/main.c//com.parasoft.xtest.checkers.api.cpp.options.working.dir=${project_loc}
 /calc/src/main.c//com.parasoft.xtest.execution.api.cpp.options.instrument.file=true
