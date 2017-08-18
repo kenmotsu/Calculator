@@ -27,19 +27,11 @@ main(void)
     toPolishNotation(formula);
 
     int calcResult = calcPolishNotation(array);
-    // ‰ü—Ç
-    /*if (errorMess[0] != '\0')
+
+    if (errorMess[0] != '\0')
     {
         printf("%s", errorMess);
         return 0;
-    }*/
-    for (int i = 0; i < MESSNUM; i++)
-    {
-        if (errorMess[i] != '\0')
-        {
-            printf("%s", errorMess);
-            return 0;
-        }
     }
 
     printf("ŒvŽZŒ‹‰Ê‚Í%d‚Å‚·B", calcResult);
