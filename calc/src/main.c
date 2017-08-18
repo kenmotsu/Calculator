@@ -13,9 +13,7 @@ main(void)
 {
     char formula[MAX_NUM] = {0};
 
-    // 仕様変更
-    //printf("計算式を入力してください。\n");
-    printf("計算式を入力してください\n");
+    printf("計算式を入力してください。\n");
 
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
