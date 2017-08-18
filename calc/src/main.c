@@ -20,9 +20,7 @@ main(void)
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
 
-    // バグ
-    //if (!validateInputFormula(formula)) /* parasoft-suppress BD-PB-CC "誤検出" */
-    if (validateInputFormula(formula)) /* parasoft-suppress BD-PB-CC "誤検出" */
+    if (!validateInputFormula(formula)) /* parasoft-suppress BD-PB-CC "誤検出" */
     {
         printf("%s", errorMess);
         return 0;
