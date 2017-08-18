@@ -13,9 +13,7 @@ main(void)
 {
     char formula[MAX_NUM] = {0};
 
-    // 仕様変更
-    //printf("計算式を入力してください。\n");
-    printf("計算式を入力してください\n");
+    printf("計算式を入力してください。\n");
 
     fgets(formula, MAX_NUM, stdin);
     strtok(formula, "\r\n");
@@ -29,19 +27,11 @@ main(void)
     toPolishNotation(formula);
 
     int calcResult = calcPolishNotation(array);
-    // 改良
-    /*if (errorMess[0] != '\0')
+
+    if (errorMess[0] != '\0')
     {
         printf("%s", errorMess);
         return 0;
-    }*/
-    for (int i = 0; i < MESSNUM; i++)
-    {
-        if (errorMess[i] != '\0')
-        {
-            printf("%s", errorMess);
-            return 0;
-        }
     }
 
     printf("計算結果は%dです。", calcResult);
